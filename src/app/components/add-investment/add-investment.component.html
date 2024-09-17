@@ -1,0 +1,48 @@
+<div *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+  <div *ngIf="!isLoading">
+<div class="container d-flex justify-content-center">
+    <div class="card my-3 col-12 col-sm-12 col-md-6">
+        <div class="card-header">
+            Add investment
+          </div>
+          <div class="card-body">
+            <form [formGroup]="assetForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="assettype" class="form-label">Asset Type</label>
+                <input type="text" class="form-control" formControlName="assetType"  id="assettype" placeholder="Stocks">
+                <div *ngIf="assetForm.get('assetType').invalid && assetForm.get('assetType').touched" class="text-danger">
+                    Asset Type is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="purchaseQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control"  formControlName="purchaseQuantity" id="purchaseQuantity" placeholder="1">
+                <div *ngIf="assetForm.get('purchaseQuantity').invalid && assetForm.get('purchaseQuantity').touched" class="text-danger">
+                    Quantity must be a positive number.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="purchasePrice" class="form-label">Price</label>
+                <input type="number" formControlName="purchasePrice" class="form-control" id="purchasePrice" placeholder="1400">
+                <div *ngIf="assetForm.get('purchasePrice').invalid && assetForm.get('purchasePrice').touched" class="text-danger">
+                    Purchase Price must be a positive number.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="purchaseDate" class="form-label">Date</label>
+                <input type="date"  formControlName="purchaseDate" class="form-control" id="purchaseDate" placeholder="14-09-2024">
+                <div *ngIf="assetForm.get('purchaseDate').invalid && assetForm.get('purchaseDate').touched" class="text-danger">
+                    Purchase Date is required.
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-end">
+                <button  type="submit" [disabled]="assetForm.invalid" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+    </div>
+</div>
+</div>
+<app-alert [alertType]="alertType" [alertMessage]="alertMessage" [alertEnable]="alertEnable" *ngIf="alertEnable"></app-alert>
